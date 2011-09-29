@@ -1,0 +1,30 @@
+==============================================================
+	Warpath - Author: Daniel Ormisher
+==============================================================
+
+
+Running Demo
+==============================================================
+
+To run demo double click on 'Warpath' shortcut.
+
+If any missing .dll errors are recieved then please run dxwebsetup.exe to install the
+latest version of the DirectX End User Runtime.
+
+You will also need to install oalinst.exe as the game uses OpenAL and needs the correct DLL's
+to be installed to run.
+
+The files mentioned above can be found in the folder \Installation Files.
+
+If problems persist, a video can be found at the following web link:
+http://www.youtube.com/watch?v=u3nwsnwJaM8
+
+
+Game Controls
+==============================================================
+
+Accelerate	= W
+Turn Left	= A
+Turn Right	= D
+Use Power Up	= Space
+Exit Game	= Escape

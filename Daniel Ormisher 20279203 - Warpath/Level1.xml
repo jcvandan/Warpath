@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+<!-- Level Setup -->
+<Level>
+
+  <!-- Entity Templates -->
+  <Templates>
+
+    <!-- Tank Templates -->
+    <EntityTemplate Name="Tank 1" Type="Player Tank" Folder="Tanks" Mesh="HoverTank05.x" RenderMethod="VertexLighting"
+                    MaxSpeed="25.0" Acceleration="1.2" TurnSpeed="1.5"/>
+    <EntityTemplate Name="Tank 2" Type="AI Tank" Folder="Tanks" Mesh="HoverTank04.x" RenderMethod="VertexLighting"
+                    MaxSpeed="25.0" Acceleration="1.2" TurnSpeed="1.5"/>
+    <EntityTemplate Name="Tank 3" Type="AI Tank" Folder="Tanks" Mesh="HoverTank08.x" RenderMethod="VertexLighting"
+                    MaxSpeed="25.0" Acceleration="1.2" TurnSpeed="1.5"/>
+    <EntityTemplate Name="Tank 4" Type="AI Tank" Folder="Tanks" Mesh="HoverTank06.x" RenderMethod="VertexLighting"
+                    MaxSpeed="25.0" Acceleration="1.2" TurnSpeed="1.5"/>
+    
+    <!-- Scenery Templates -->
+    <EntityTemplate Name="Skybox" Type="Scenery" Folder="Scenery" Mesh="Skybox.x" RenderMethod="BrightenedTexture"/>
+    <EntityTemplate Name="Hills" Type="Scenery" Folder="Scenery" Mesh="Hills.x" RenderMethod="PixelLighting"/>
+    <EntityTemplate Name="Start Checkpoint" Type="Scenery" Folder="Track" Mesh="Checkpoint.x" RenderMethod="PixelLighting"/>
+
+    <!-- Building Templates -->
+    <!-- Sci-Fi -->
+    <EntityTemplate Name="Power Plant" Type="Building" Folder="Buildings" Mesh="Building09.x" RenderMethod="PixelLighting"/>
+    <EntityTemplate Name="Factory" Type="Building" Folder="Buildings" Mesh="Building07.x" RenderMethod="PixelLighting"/>
+    <EntityTemplate Name="Sci-Fi Skyscraper" Type="Building" Folder="Buildings" Mesh="Building03.x" RenderMethod="PixelLighting"/>
+    <EntityTemplate Name="Airport" Type="Building" Folder="Buildings" Mesh="Building08.x" RenderMethod="PixelLighting"/>
+
+    <!-- Spacecraft Templates -->
+    <EntityTemplate Name="Battlecruiser" Type="Spaceship" Folder="Aircraft" Mesh="Spaceship01Battlecruiser.x" RenderMethod="PixelLighting"/>
+    <EntityTemplate Name="Starfighter" Type="Spaceship" Folder="Aircraft" Mesh="HawkStarfighter.x" RenderMethod="PixelLighting"/>
+
+    <!-- Track Templates -->
+    <EntityTemplate Name="Track Straight" Type="Track" Folder="Track" Mesh="IsleStraight.x" RenderMethod="PixelLighting"/>
+    <EntityTemplate Name="Track Corner" Type="Track" Folder="Track" Mesh="IsleCorner.x" RenderMethod="PixelLighting"/>
+    <EntityTemplate Name="Track Walkway" Type="Track" Folder="Track" Mesh="Walkway.x" RenderMethod="PixelLighting"/>
+    <EntityTemplate Name="Track Ramp" Type="Track" Folder="Track" Mesh="RampLo.x" RenderMethod="PixelLighting"/>
+    <EntityTemplate Name="Wall" Type="Scenery" Folder="Track" Mesh="Wall.x" RenderMethod="PixelLighting"/>
+
+    <!-- Power-Up Templates -->
+    <EntityTemplate Name="SpeedBoost" Type="Power Up" Folder="Scenery" Mesh="Sphere.x" RenderMethod="Texture" PowerUpType="SpeedBoost" 
+                    Bullets="0" Texture="Speedboost.png"/>
+    <EntityTemplate Name="Health" Type="Power Up" Folder="Scenery" Mesh="Sphere.x" RenderMethod="Texture" PowerUpType="Health"
+                    Bullets="0" Texture="HealthAlpha.png"/>
+    <EntityTemplate Name="Mortar" Type="Power Up" Folder="Scenery" Mesh="Sphere.x" RenderMethod="Texture" PowerUpType="Mortar"
+                    Bullets="1" Texture="Mortar.png"/>
+    <EntityTemplate Name="MachineGun" Type="Power Up" Folder="Scenery" Mesh="Sphere.x" RenderMethod="Texture" PowerUpType="MachineGun"
+                    Bullets="100" Texture="MachineGun.png"/>
+
+    <!-- Light Templates -->
+    <EntityTemplate Name="Lamp Post" Type="Scenery" Folder="Scenery" Mesh="Lamp.x" RenderMethod="PixelLighting"/>
+    <EntityTemplate Name="Light" Type="Light" Folder="Scenery" Mesh="Light.x" RenderMethod="Texture"/>
+    
+  </Templates>
+
+  <!-- Entities -->
+  <Entities>
+    
+    <!-- Scenery Entities -->
+    <Entity Type="Skybox" Name="Skybox">
+      <Position X="-380.0" Y="-2000.0" Z="300.0"/>
+      <Rotation X="0.0" Y="180.0" Z="0.0"/>
+      <Scale X="2.0" Y="2.0" Z="2.0"/>
+    </Entity>
+    <Entity Type="Hills" Name="Hills">
+      <Position X="-380.0" Y="-0.0" Z="300.0"/>
+      <Scale X="6.0" Y="3.0" Z="5.0"/>
+    </Entity>
+
+  <!-- Building Entities -->
+    <!-- Sci-Fi -->
+    <Entity Type="Power Plant" Name="Power Plant 1">
+      <Position X="0.0" Y="0.0" Z="-20.0"/>
+      <Scale X="2.0" Y="2.0" Z="2.0"/>
+    </Entity>
+    <Entity Type="Factory" Name="Factory 1">
+      <Position X="0.0" Y="0.0" Z="190.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="3.0" Y="3.0" Z="3.0"/>
+    </Entity>
+    <Entity Type="Sci-Fi Skyscraper" Name="Sci-Fi Skyscraper 1">
+      <Position X="159.0" Y="0.0" Z="-95.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="2.0" Y="2.0" Z="2.0"/>
+    </Entity>
+    <Entity Type="Sci-Fi Skyscraper" Name="Sci-Fi Skyscraper 2">
+      <Position X="159.0" Y="0.0" Z="80.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="2.0" Y="2.0" Z="2.0"/>
+    </Entity>
+    <Entity Type="Sci-Fi Skyscraper" Name="Sci-Fi Skyscraper 3">
+      <Position X="-140.0" Y="0.0" Z="100.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="2.0" Y="2.0" Z="2.0"/>
+    </Entity>
+    <Entity Type="Airport" Name="Airport 1">
+      <Position X="-15.0" Y="-70.0" Z="-270.0"/>
+      <Rotation X="0.0" Y="180.0" Z="0.0"/>
+      <Scale X="3.0" Y="3.0" Z="3.0"/>
+    </Entity>
+
+    <!-- Spacecraft Entities -->
+    <Entity Type="Battlecruiser" Name="Battlecruiser 1">
+      <Position X="0.0" Y="20.0" Z="-226.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="3.0" Y="3.0" Z="3.0"/>
+    </Entity>
+    <Entity Type="Starfighter" Name="Starfighter 1">
+      <Position X="-50.0" Y="5.0" Z="-200.0"/>
+      <Rotation X="0.0" Y="30.0" Z="0.0"/>
+      <Scale X="3.0" Y="3.0" Z="3.0"/>
+    </Entity>
+    <Entity Type="Starfighter" Name="Starfighter 2">
+      <Position X="50.0" Y="5.0" Z="-200.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="3.0" Y="3.0" Z="3.0"/>
+    </Entity>
+    <Entity Type="Starfighter" Name="Starfighter 3">
+      <Position X="0.0" Y="5.0" Z="-190.0"/>
+      <Rotation X="0.0" Y="-72.0" Z="0.0"/>
+      <Scale X="3.0" Y="3.0" Z="3.0"/>
+    </Entity>
+    
+    <!-- Track Entities -->
+    <Entity Type="Track Walkway" Name="2">
+      <Position X="17.0" Y="10.5" Z="90.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="6.0"/>
+      <Bounds Width="9.0" Length="15.0"/>
+    </Entity>
+    
+    <Entity Type="Track Walkway" Name="3">
+      <Position X="-9.0" Y="10.5" Z="90.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="6.0"/>
+      <Bounds Width="9.0" Length="15.0"/>
+    </Entity>
+    
+    <Entity Type="Track Corner" Name="4">
+      <Position X="-48.0" Y="0.0" Z="90.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="13.0" Length="28.0"/>
+      <Waypoints>
+        <Waypoint Lane="0" X="-36.9827 " Y="10.5" Z="80.2658" />
+        <Waypoint Lane="0" X="-43.5377 " Y="10.5" Z="52.4578" />
+        <Waypoint Lane="1" X="-40.4276 " Y="10.5" Z="80.0209" />
+        <Waypoint Lane="1" X="-45.6722 " Y="10.5" Z="51.8447" />
+        <Waypoint Lane="2" X="-38.7319 " Y="10.5" Z="88.6212" />
+        <Waypoint Lane="2" X="-48.5496 " Y="10.5" Z="44.8751" />
+        <Waypoint Lane="3" X="-44.3225 " Y="10.5" Z="86.6821" />
+        <Waypoint Lane="3" X="-52.8521 " Y="10.5" Z="48.0914" />        
+      </Waypoints>
+    </Entity>
+    
+    <Entity Type="Track Walkway" Name="5">
+      <Position X="-48.0" Y="10.5" Z="52.0"/>
+      <Rotation X="0.0" Y="0.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="9.0" Length="12.0"/>
+    </Entity>
+    
+    <Entity Type="Track Corner" Name="6">
+      <Position X="-48.0" Y="0.0" Z="14.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="13.0" Length="28.0"/>
+      <Waypoints>
+        <Waypoint Lane="0" X="-50.8581 " Y="10.5" Z="15.5294" />
+        <Waypoint Lane="0" X="-90.4246 " Y="10.5" Z="7.70821" />
+        <Waypoint Lane="1" X="-53.159 " Y="10.5" Z="16.5889" />
+        <Waypoint Lane="1" X="-91.0657 " Y="10.5" Z="9.9051" />
+        <Waypoint Lane="2" X="-57.7297 " Y="10.5" Z="19.3766" />
+        <Waypoint Lane="2" X="-89.6362 " Y="10.5" Z="16.0956" />
+        <Waypoint Lane="3" X="-59.8507 " Y="10.5" Z="21.7644" />
+        <Waypoint Lane="3" X="-90.5326 " Y="10.5" Z="18.395" />
+      </Waypoints>
+    </Entity>
+    
+    <Entity Type="Track Walkway" Name="7">
+      <Position X="-86.0" Y="10.5" Z="14.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="9.0" Length="12.0"/>
+    </Entity>
+    
+    <Entity Type="Track Corner" Name="8">
+      <Position X="-124.0" Y="0.0" Z="14.0"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="13.0" Length="28.0"/>
+      <Waypoints>
+        <Waypoint Lane="3" X="-112.347 " Y="10.5" Z="16.9351" />
+        <Waypoint Lane="3" X="-128.198 " Y="10.5" Z="0.276092" />
+        <Waypoint Lane="3" X="-129.489 " Y="10.5" Z="-30.3703" />
+        <Waypoint Lane="2" X="-114.181 " Y="10.5" Z="12.4571" />
+        <Waypoint Lane="2" X="-125.902 " Y="10.5" Z="-2.1806" />
+        <Waypoint Lane="2" X="-126.951 " Y="10.5" Z="-29.7873" />
+        <Waypoint Lane="1" X="-116.306 " Y="10.5" Z="6.29456" />
+        <Waypoint Lane="1" X="-122.123 " Y="10.5" Z="-27.9766" />
+        <Waypoint Lane="0" X="-115.398 " Y="10.5" Z="3.3604" />
+        <Waypoint Lane="0" X="-119.333 " Y="10.5" Z="-45.3975" />
+      </Waypoints>
+    </Entity>
+    
+    <Entity Type="Track Walkway" Name="9">
+      <Position X="-124.0" Y="10.5" Z="-24.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="9.0" Length="12.0"/>
+    </Entity>
+    
+    <Entity Type="Track Straight" Name="10">
+      <Position X="-124.0" Y="0.0" Z="-50.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="12.0" Length="15.0"/>
+    </Entity>
+    
+    <Entity Type="Track Walkway" Name="11">
+      <Position X="-124.0" Y="10.5" Z="-76.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="9.0" Length="12.0"/>
+    </Entity>
+    
+    <Entity Type="Track Corner" Name="12">
+      <Position X="-124.0" Y="0.0" Z="-114.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="13.0" Length="28.0"/>
+      <Waypoints>
+        <Waypoint Lane="0" X="-113.236 " Y="10.5" Z="-103.977" />
+        <Waypoint Lane="0" X="-85.7706 " Y="10.5" Z="-108.228" />
+        <Waypoint Lane="1" X="-114.324 " Y="10.5" Z="-107.148" />
+        <Waypoint Lane="1" X="-84.7048 " Y="10.5" Z="-110.641" />
+        <Waypoint Lane="2" X="-115.363 " Y="10.5" Z="-109.6" />
+        <Waypoint Lane="2" X="-85.3931 " Y="10.5" Z="-114.522" />
+        <Waypoint Lane="3" X="-117.18 " Y="10.5" Z="-112.836" />
+        <Waypoint Lane="3" X="-84.8028 " Y="10.5" Z="-118.255" />
+      </Waypoints>
+    </Entity>
+    
+    <Entity Type="Track Walkway" Name="13">
+      <Position X="-86.0" Y="10.5" Z="-114.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="9.0" Length="12.0"/>
+    </Entity>
+    
+    <Entity Type="Track Straight" Name="14">
+      <Position X="-60.0" Y="0.0" Z="-114.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="12.0" Length="15.0"/>
+    </Entity>
+    
+    <Entity Type="Track Walkway" Name="15">
+      <Position X="-34.0" Y="10.5" Z="-114.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="9.0" Length="12.0"/>
+    </Entity>
+    
+    <Entity Type="Track Straight" Name="16">
+      <Position X="-8.0" Y="0.0" Z="-114.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="12.0" Length="15.0"/>
+    </Entity>
+    
+    <Entity Type="Track Walkway" Name="17">
+      <Position X="18.5" Y="10.5" Z="-114.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="9.0" Length="12.0"/>
+    </Entity>
+    
+    <Entity Type="Track Corner" Name="18">
+      <Position X="56.5" Y="0.0" Z="-114.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="13.0" Length="28.0"/>
+      <Waypoints>
+        <Waypoint Lane="0" X="47.2406 " Y="10.5" Z="-104.17" />
+        <Waypoint Lane="0" X="51.9413 " Y="10.5" Z="-77.0846" />
+        <Waypoint Lane="1" X="48.2518 " Y="10.5" Z="-107.615" />
+        <Waypoint Lane="1" X="54.5049 " Y="10.5" Z="-77.2357" />
+        <Waypoint Lane="2" X="52.4728 " Y="10.5" Z="-107.766" />
+        <Waypoint Lane="2" X="58.3764 " Y="10.5" Z="-75.8773" />
+        <Waypoint Lane="3" X="55.2211 " Y="10.5" Z="-110.632" />
+        <Waypoint Lane="3" X="62.5934 " Y="10.5" Z="-74.1353" />
+      </Waypoints>
+    </Entity>
+    
+    <Entity Type="Track Walkway" Name="19">
+      <Position X="56.5" Y="10.5" Z="-76.0"/>
+      <Rotation X="0.0" Y="180.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="9.0" Length="12.0"/>
+    </Entity>
+    
+    <Entity Type="Track Straight" Name="20">
+      <Position X="56.5" Y="0.0" Z="-49.5"/>
+      <Rotation X="0.0" Y="180.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="12.0" Length="15.0"/>
+    </Entity>
+
+    <Entity Type="Track Walkway" Name="21">
+      <Position X="56.5" Y="10.5" Z="-18.5"/>
+      <Rotation X="0.0" Y="180.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="7.1"/>
+      <Bounds Width="9.0" Length="13.0"/>
+    </Entity>
+    
+    <Entity Type="Track Straight" Name="22">
+      <Position X="56.5" Y="0.0" Z="14.5"/>
+      <Rotation X="0.0" Y="180.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.6"/>
+      <Bounds Width="12.0" Length="16.0"/>
+    </Entity>   
+    
+    <Entity Type="Track Walkway" Name="22">
+      <Position X="56.5" Y="10.5" Z="47.5"/>
+      <Rotation X="0.0" Y="180.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="7.1"/>
+      <Bounds Width="9.0" Length="13.0"/>
+    </Entity>
+    
+    <Entity Type="Track Corner" Name="23">
+      <Position X="56.5" Y="0.0" Z="90.0"/>
+      <Rotation X="0.0" Y="180.0" Z="0.0"/>
+      <Scale X="5.0" Y="2.0" Z="5.0"/>
+      <Bounds Width="13.0" Length="28.0"/>
+      <Waypoints>
+        <Waypoint Lane="0" X="46.2255 " Y="10.5" Z="81.1667" />
+        <Waypoint Lane="0" X="18.289 " Y="10.5" Z="85.3858" />
+        <Waypoint Lane="1" X="48.3285 " Y="10.5" Z="84.1484" />
+        <Waypoint Lane="1" X="16.5856 " Y="10.5" Z="88.9161" />
+        <Waypoint Lane="2" X="51.257 " Y="10.5" Z="84.9827" />
+        <Waypoint Lane="2" X="16.0067 " Y="10.5" Z="91.2585" />
+        <Waypoint Lane="3" X="52.9829 " Y="10.5" Z="87.8436" />
+        <Waypoint Lane="3" X="15.37 " Y="10.5" Z="95.7672" />
+      </Waypoints>
+    </Entity>
+
+    <!-- Extrack Track Scenery -->
+    <Entity Type="Start Checkpoint" Name="Start">
+      <Position X="32.0" Y="10.5" Z="90.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="0.9" Y="1.0" Z="1.0"/>
+    </Entity>
+
+    <!-- Tank Entities -->
+    <Entity Type="Tank 1" Name="Player">
+      <Position X="15.0" Y="11.0" Z="88.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="0.75" Y="0.75" Z="0.75"/>
+    </Entity>
+     
+    <Entity Type="Tank 2" Name="AI-1" Lane="3">
+      <Position X="15.0" Y="11.0" Z="93.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="0.8" Y="0.8" Z="0.8"/>
+    </Entity>
+    
+    <Entity Type="Tank 3" Name="AI-2" Lane="1">
+      <Position X="5.0" Y="11.0" Z="88.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="0.75" Y="0.75" Z="0.75"/>
+    </Entity>
+
+    <Entity Type="Tank 4" Name="AI-3" Lane="2">
+      <Position X="5.0" Y="11.0" Z="93.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="0.75" Y="0.75" Z="0.75"/>
+    </Entity>
+
+    <!-- Power Up Entities -->
+    <Entity Type="Mortar" Name="Mortar1">
+      <Position X="-43.7542" Y="12.0" Z="51.5626"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+    <Entity Type="Health" Name="Health1">
+      <Position X="-47.7542 " Y="12.0" Z="51.5626"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+    <Entity Type="MachineGun" Name="MachineGun1">
+      <Position X="-51.7542 " Y="12.0" Z="51.5626"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+
+    <Entity Type="SpeedBoost" Name="SpeedBoost1">
+      <Position X="-119.463 " Y="12.0" Z="-50.7411"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+    <Entity Type="Health" Name="Health2">
+      <Position X="-124.0 " Y="12.0" Z="-50.7411"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+    <Entity Type="MachineGun" Name="MachineGun2">
+      <Position X="-128.463 " Y="12.0" Z="-50.7411"/>
+      <Rotation X="0.0" Y="90.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+
+    <Entity Type="MachineGun" Name="MachineGun3">
+      <Position X="-33.0 " Y="12.0" Z="-109.0"/>
+      <Rotation X="0.0" Y="0.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+    <Entity Type="Mortar" Name="Mortar2">
+      <Position X="-33.0 " Y="12.0" Z="-114.0"/>
+      <Rotation X="0.0" Y="0.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+    <Entity Type="SpeedBoost" Name="SpeedBoost2">
+      <Position X="-33.0 " Y="12.0" Z="-119.0"/>
+      <Rotation X="0.0" Y="0.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+
+    <Entity Type="Mortar" Name="Mortar3">
+      <Position X="51.0 " Y="12.0" Z="14.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+    <Entity Type="SpeedBoost" Name="SpeedBoost3">
+      <Position X="56.0" Y="12.0" Z="14.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+    <Entity Type="Health" Name="Health3">
+      <Position X="61.0 " Y="12.0" Z="14.0"/>
+      <Rotation X="0.0" Y="-90.0" Z="0.0"/>
+      <Scale X="0.1" Y="0.1" Z="0.1"/>
+    </Entity>
+    
+    
+
+  </Entities>
+
+  <!-- Create Lights for Scene and Ambient Lighting -->
+
+  <Lighting>
+
+    <AmbientLight R="0.7" G="0.7" B="0.7" />
+    
+    <Light Type="Point" Template="Light" Brightness="10000.0">
+      <Colour R="1.0" G="1.0" B="1.0" />
+      <Position X="509.0" Y="838.0" Z="2269.0"/>
+    </Light>
+    
+  </Lighting>
+  
+  <!-- End of Scene Setup -->
+
+</Level>

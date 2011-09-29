@@ -1,0 +1,40 @@
+/**************************************************
+	LightTex.psh
+
+	Pixel Shader that displays a pixel and lighting
+***************************************************/
+
+//-----------------------------------------------------------------------------
+// Global variables
+//-----------------------------------------------------------------------------
+
+// Access to texture 0
+sampler2D Texture;
+
+//-----------------------------------------------------------------------------
+// Input / output structures
+//-----------------------------------------------------------------------------
+
+struct PS_Input
+{
+	float2 TexCoord0      : TEXCOORD0;
+};
+
+// Output from pixel shader
+struct PS_Output
+{
+	float4 Colour : COLOR0;
+};
+
+//-----------------------------------------------------------------------------
+// Main function
+//-----------------------------------------------------------------------------
+
+// Just combine lighting and texture colours
+void main( in PS_Input i, out PS_Output o )
+{
+	float4 newColour = tex2D( Texture, i.TexCoord0 );
+	newColour.xyz *= 1.0f;
+	o.Colour.rgba = newColour;//tex2D( Texture, i.TexCoord0 );
+	//o.Colour.a = TextureColour.a;
+}

@@ -1,0 +1,62 @@
+/**************************************************
+	LightTex.psh
+
+	Pixel Shader that displays a pixel and lighting
+***************************************************/
+
+//-----------------------------------------------------------------------------
+// Global variables
+//-----------------------------------------------------------------------------
+
+// Access to texture 0
+sampler2D Texture;
+
+// Current lighting information - ambient + two point lights (no attenuation)
+float3 AmbientColour;
+float3 Light1Pos; // Point light 1 - position
+float3 Light1Colour;   // Point light 1 - colour
+
+//-----------------------------------------------------------------------------
+// Input / output structures
+//-----------------------------------------------------------------------------
+
+// Input to pixel shader. This shader gets the the (interpolated) diffuse & specular colours and
+// texture coordinates from the vertex shader
+struct PS_Input
+{
+	float2 TexCoord0      : TEXCOORD0;
+	float4 WorldPosition  : TEXCOORD1;
+	float4 WorldNormal    : TEXCOORD2;
+};
+
+// Output from pixel shader
+struct PS_Output
+{
+	float4 Colour : COLOR0;
+};
+
+//-----------------------------------------------------------------------------
+// Main function
+//-----------------------------------------------------------------------------
+
+// Just combine lighting and texture colours
+void main( in PS_Input i, out PS_Output o ) 
+{
+	float4 WorldNormal = normalize(i.WorldNormal);
+
+	float3 TotalDiffuseColour = AmbientColour;
+	
+	// First light
+
+	// Calculate diffuse lighting from the 1st light. Standard equation: Diffuse = max(0, N.L)
+	float3 LightDir = normalize( Light1Pos - i.WorldPosition );
+	float3 DiffuseColour = ( Light1Colour * max( 0, dot( WorldNormal, LightDir ) ) )*2;
+	TotalDiffuseColour += DiffuseColour;
+
+	// To get output colour, multiply texture and diffuse colour, then add the specular
+	float4 TextureColour = tex2D( Texture, i.TexCoord0 );
+	o.Colour.rgb = TotalDiffuseColour * TextureColour;
+
+	// Output alpha taken from texture (for alpha blending effects if required)
+	o.Colour.a = TextureColour.a;
+}

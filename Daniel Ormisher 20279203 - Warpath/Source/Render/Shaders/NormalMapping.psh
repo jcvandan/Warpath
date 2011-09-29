@@ -1,0 +1,134 @@
+/**********************************************
+	NormalMapping.psh
+
+	Pixel shader to calculate normal-mapped
+	per-pixel lighting 
+***********************************************/
+
+//-----------------------------------------------------------------------------
+// Global variables
+//-----------------------------------------------------------------------------
+
+//***| INFO |*********************************************************************************
+// The pixel shader needs the world matrix, previously only needed by the vertex shader. This
+// is so it can transform the stored texture normals into world space. It turns out that
+// vectors/normals only require 3x3 matrices for transformations as their 4th element is 0.
+// This fact is taken advantage of here
+//********************************************************************************************
+float3x3 WorldMatrix;
+
+// Current lighting information - ambient + two point lights
+float3 AmbientColour;
+float3 Light1Pos;   // Point light 1 - position
+float3 Light1Colour;     // Point light 1 - colour
+float3 Light1Brightness; // Point light 1 - brightness
+
+// Shininess of material and camera position needed for specular calculation
+float SpecularPower;
+float3 CameraPosition;
+
+// Access to textures 0 & 1 (order of textures must match SetTexture index in C++ code)
+sampler2D Texture;  // Standard texture
+sampler2D NormMap;  // Normal map to produce bumpiness
+
+
+//-----------------------------------------------------------------------------
+// Input / output structures
+//-----------------------------------------------------------------------------
+
+// Input to pixel shader. This shader gets the world position, model normal and model tangent
+// of each pixel from the vertex shader. It uses these to do lighting / normal-mapping
+// calculations per-pixel. There are no semantics for such uses, so we use TEXCOORD semantics,
+// this is usual for any non-standard data types passed between shaders
+struct PS_Input
+{
+	float2 TexCoord0     : TEXCOORD0;
+	float3 WorldPosition : TEXCOORD1; // The world position of the pixel
+	float3 ModelNormal   : TEXCOORD2; // The model normal of the pixel
+	float3 ModelTangent  : TEXCOORD3; // The model tangent of the pixel
+};
+
+// Output from pixel shader
+struct PS_Output
+{
+	float4 Colour : COLOR0;
+};
+
+
+//-----------------------------------------------------------------------------
+// Main function
+//-----------------------------------------------------------------------------
+
+void main( in PS_Input i, out PS_Output o ) 
+{
+	//************************
+	// Normal Map Extraction
+	//************************
+
+	// Use the model normal/tangent to calculate matrix for tangent space. The normals for each
+	// pixel are *interpolated* from the vertex normals/tangents. This means they will not be
+	// length one, so they need to be renormalised
+	float3 ModelNormal = normalize( i.ModelNormal );
+	float3 ModelTangent = normalize( i.ModelTangent );
+
+	// Calculate bi-tangent to complete the three axes of tangent space - then create the
+	// *inverse* tangent matrix to convert *from* tangent space into model space. This is just
+	// a matrix built from the three axes (very advanced note - by default shader matrices are
+	// stored as columns rather than in rows as in the C++. This means that this matrix is
+	// created "transposed" from what we would expect. However, for a 3x3 rotation matrix, this
+	// is actually the inverse we require)
+	float3 ModelBiTangent = cross( ModelNormal, ModelTangent );
+	float3x3 InvTangentMatrix = float3x3(ModelTangent, ModelBiTangent, ModelNormal);
+	
+	// Get the texture normal from the normal map. The r, g & b pixel values actually store 
+	// x, y & z components of a normal. However, r, g & b values are stored in the range 0->1,
+	// whereas the x, y & z components should be in the range -1->1. So some scaling is needed
+	float3 TextureNormal = 2.0f * tex2D( NormMap, i.TexCoord0 ) - 1.0f; // Scale from 0->1 to -1->1
+
+	// Now convert the texture normal into model space using the tangent matrix, and then convert
+	// into world space using the world matrix. Normalise, in case the world matrix contains
+	// scaling. Now use this normal for lighting calculations in world space as usual
+	float3 WorldNormal = normalize( mul( mul( TextureNormal, InvTangentMatrix ), WorldMatrix ) );
+
+	// Remaining code same as per-pixel lighting
+
+	//**********************
+	// Lighting preparation
+
+	// Get normalised vector to camera for specular equation (common for all lights)
+	float3 CameraDir = normalize( CameraPosition - i.WorldPosition );
+
+	// Accumulate diffuse and specular colour effect from each light
+	// The ambient colour (background light level) is included in the diffuse colour - a common
+	// process that works fine. So start with diffuse colour set to the ambient level
+	float3 TotalDiffuseColour = AmbientColour;
+	float3 TotalSpecularColour = 0;
+
+
+	//******************
+	// First light
+
+	// Calculate diffuse lighting from the 1st light. Standard equation: Diffuse = max(0, N.L)
+	float3 LightDir = Light1Pos - i.WorldPosition;
+	float LightDist = length( LightDir );
+	float LightStrength = saturate( Light1Brightness / LightDist );
+	LightDir /= LightDist; // Same as normalising
+	float3 DiffuseColour = LightStrength * Light1Colour * saturate( dot( WorldNormal, LightDir ) )*3;
+	TotalDiffuseColour += DiffuseColour;
+
+	// Calculate specular lighting from the 1st light. Standard equation: Specular = max(0, (N.H)^p)
+	// Slight tweak here: multiply by diffuse colour - a better effect for using pixel lighting
+	float3 Halfway = normalize( CameraDir + LightDir );
+	TotalSpecularColour += DiffuseColour * saturate( pow( dot( WorldNormal, Halfway ), SpecularPower ) );
+
+	//******************
+	// Final blending
+
+	// To get output colour, multiply texture and diffuse colour, then add the specular
+	// Use alpha channel of texture as a gloss map - multiply it by specular
+	float4 TextureColour = tex2D( Texture, i.TexCoord0 );
+	o.Colour.rgb = TotalDiffuseColour * TextureColour.rgb + TotalSpecularColour * TextureColour.a; 
+
+	// Set alpha blending to 1 (no alpha available in texture - using it as gloss map)
+	o.Colour.a = 1.0f;
+}

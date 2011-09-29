@@ -1,0 +1,47 @@
+/**************************************************
+	LightTex.psh
+
+	Pixel Shader that displays a pixel and lighting
+***************************************************/
+
+//-----------------------------------------------------------------------------
+// Global variables
+//-----------------------------------------------------------------------------
+
+// Access to texture 0
+sampler2D Texture;
+
+//-----------------------------------------------------------------------------
+// Input / output structures
+//-----------------------------------------------------------------------------
+
+// Input to pixel shader. This shader gets the the (interpolated) diffuse & specular colours and
+// texture coordinates from the vertex shader
+struct PS_Input
+{
+	float3 DiffuseColour  : COLOR0;  // Diffuse colour calcuated from vertex shader (interpolated)
+	float3 SpecularColour : COLOR1;  // Specular colour calcuated from vertex shader (--"--)
+	float2 TexCoord0      : TEXCOORD0;
+};
+
+// Output from pixel shader
+struct PS_Output
+{
+	float4 Colour : COLOR0;
+};
+
+
+//-----------------------------------------------------------------------------
+// Main function
+//-----------------------------------------------------------------------------
+
+// Just combine lighting and texture colours
+void main( in PS_Input i, out PS_Output o ) 
+{
+	// To get output colour, multiply texture and diffuse colour, then add the specular
+	float4 TextureColour = tex2D( Texture, i.TexCoord0 );
+	o.Colour.rgb = i.DiffuseColour * TextureColour + i.SpecularColour; 
+
+	// Output alpha taken from texture (for alpha blending effects if required)
+	o.Colour.a = TextureColour.a;
+}
